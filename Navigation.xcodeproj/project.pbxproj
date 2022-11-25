@@ -15,6 +15,7 @@
 		5B1C18182930D71F006CAC62 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1C18172930D71F006CAC62 /* ProfileViewController.swift */; };
 		5B1C181A2930DDDB006CAC62 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1C18192930DDDB006CAC62 /* PostViewController.swift */; };
 		5B1E9AFD2931218D00E9575F /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1E9AFC2931218D00E9575F /* InfoViewController.swift */; };
+		5B74EB8129315F4000D64699 /* Extension + SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B74EB8029315F4000D64699 /* Extension + SceneDelegate.swift */; };
 		5BE2AB0829315203000E1FE6 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE2AB0729315203000E1FE6 /* Post.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		5B1C18172930D71F006CAC62 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		5B1C18192930DDDB006CAC62 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		5B1E9AFC2931218D00E9575F /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		5B74EB8029315F4000D64699 /* Extension + SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + SceneDelegate.swift"; sourceTree = "<group>"; };
 		5BE2AB0729315203000E1FE6 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,6 +71,7 @@
 				5B1C18192930DDDB006CAC62 /* PostViewController.swift */,
 				5B1E9AFC2931218D00E9575F /* InfoViewController.swift */,
 				5BE2AB0729315203000E1FE6 /* Post.swift */,
+				5B74EB8029315F4000D64699 /* Extension + SceneDelegate.swift */,
 				5B1C180A2930D494006CAC62 /* Assets.xcassets */,
 				5B1C180C2930D494006CAC62 /* LaunchScreen.storyboard */,
 				5B1C180F2930D494006CAC62 /* Info.plist */,
@@ -151,6 +154,7 @@
 				5B1C18182930D71F006CAC62 /* ProfileViewController.swift in Sources */,
 				5B1C18042930D493006CAC62 /* SceneDelegate.swift in Sources */,
 				5B1E9AFD2931218D00E9575F /* InfoViewController.swift in Sources */,
+				5B74EB8129315F4000D64699 /* Extension + SceneDelegate.swift in Sources */,
 				5BE2AB0829315203000E1FE6 /* Post.swift in Sources */,
 				5B1C181A2930DDDB006CAC62 /* PostViewController.swift in Sources */,
 			);
