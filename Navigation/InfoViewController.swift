@@ -43,8 +43,8 @@ final class InfoViewController: UIViewController {
             alertButton.widthAnchor.constraint(equalToConstant: 120),
             alertButton.heightAnchor.constraint(equalToConstant: 40),
             
-            exitButton.trailingAnchor.constraint(equalTo: alertButton.trailingAnchor, constant: 100),
-            exitButton.bottomAnchor.constraint(equalTo: alertButton.bottomAnchor, constant: 280),
+            exitButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            exitButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
             exitButton.widthAnchor.constraint(equalToConstant: 100),
             exitButton.heightAnchor.constraint(equalToConstant: 40)
         ])
