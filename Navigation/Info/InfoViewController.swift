@@ -20,7 +20,6 @@ final class InfoViewController: UIViewController {
     }
     
     //MARK: - Methods
-    
     private func setupButtons() {
         view.addSubview(alertButton)
         view.addSubview(exitButton)
