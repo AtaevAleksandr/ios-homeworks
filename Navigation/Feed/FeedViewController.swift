@@ -16,7 +16,17 @@ final class FeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupButtons()
-        view.backgroundColor = .yellow
+        view.backgroundColor = .gray
+        navigationItem.title = "Feed"
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .white
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.compactAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
 
     //MARK: - Methods
@@ -24,7 +34,7 @@ final class FeedViewController: UIViewController {
     private func setupButtons() {
         view.addSubview(tapButton)
         tapButton.configuration = .filled()
-        tapButton.configuration?.baseBackgroundColor = .systemRed
+        tapButton.configuration?.baseBackgroundColor = .black
         tapButton.configuration?.title = "Tap Me!"
         tapButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         tapButton.translatesAutoresizingMaskIntoConstraints = false
@@ -41,7 +51,6 @@ final class FeedViewController: UIViewController {
         let newViewController = PostViewController()
         navigationController?.pushViewController(newViewController, animated: true)
         newViewController.title = postTitle.title
-        navigationController?.navigationBar.prefersLargeTitles = true
     }
 
     override func didReceiveMemoryWarning() {
