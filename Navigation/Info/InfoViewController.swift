@@ -15,7 +15,7 @@ final class InfoViewController: UIViewController {
         alert.configuration = .filled()
         alert.configuration?.baseBackgroundColor = .systemPink
         alert.configuration?.title = "Alert!"
-        alert.addTarget(InfoViewController.self, action: #selector(alertAction), for: .touchUpInside)
+        alert.addTarget(self, action: #selector(alertAction), for: .touchUpInside)
         alert.translatesAutoresizingMaskIntoConstraints = false
         return alert
     }()
@@ -25,7 +25,7 @@ final class InfoViewController: UIViewController {
         exit.configuration = .filled()
         exit.configuration?.baseBackgroundColor = .darkGray
         exit.configuration?.title = "Exit!"
-        exit.addTarget(InfoViewController.self, action: #selector(exitAction), for: .touchUpInside)
+        exit.addTarget(self, action: #selector(exitAction), for: .touchUpInside)
         exit.translatesAutoresizingMaskIntoConstraints = false
         return exit
     }()
