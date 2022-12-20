@@ -9,8 +9,18 @@ import UIKit
 
 final class FeedViewController: UIViewController {
 
+    //MARK: - Clousers
+    private let tapButton: UIButton = {
+        let button = UIButton()
+        button.configuration = .filled()
+        button.configuration?.baseBackgroundColor = .black
+        button.configuration?.title = "Tap Me!"
+        button.addTarget(FeedViewController.self, action: #selector(buttonAction), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
     //MARK: - Properties
-    private let tapButton = UIButton()
     private var postTitle = Post(title: "You are in Post View!")
 
     override func viewDidLoad() {
@@ -30,14 +40,8 @@ final class FeedViewController: UIViewController {
     }
 
     //MARK: - Methods
-
     private func setupButtons() {
         view.addSubview(tapButton)
-        tapButton.configuration = .filled()
-        tapButton.configuration?.baseBackgroundColor = .black
-        tapButton.configuration?.title = "Tap Me!"
-        tapButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
-        tapButton.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
             tapButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),

@@ -40,7 +40,7 @@ final class ProfileHeaderView: UIView {
         return subLabel
     }()
 
-    private lazy var setStatusButton:  UIButton = {
+    private lazy var setStatusButton: UIButton = {
         let statusButton = UIButton()
         statusButton.setTitle("Show status", for: .normal)
         statusButton.setTitleColor(.white, for: .normal)

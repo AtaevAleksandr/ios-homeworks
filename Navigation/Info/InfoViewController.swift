@@ -8,33 +8,38 @@
 import UIKit
 
 final class InfoViewController: UIViewController {
-    
-    //MARK: - Properties
-    private let alertButton = UIButton()
-    private let exitButton = UIButton()
-    
+
+    //MARK: - Clousers
+    private let alertButton: UIButton = {
+        let alert = UIButton()
+        alert.configuration = .filled()
+        alert.configuration?.baseBackgroundColor = .systemPink
+        alert.configuration?.title = "Alert!"
+        alert.addTarget(InfoViewController.self, action: #selector(alertAction), for: .touchUpInside)
+        alert.translatesAutoresizingMaskIntoConstraints = false
+        return alert
+    }()
+
+    private let exitButton: UIButton = {
+        let exit = UIButton()
+        exit.configuration = .filled()
+        exit.configuration?.baseBackgroundColor = .darkGray
+        exit.configuration?.title = "Exit!"
+        exit.addTarget(InfoViewController.self, action: #selector(exitAction), for: .touchUpInside)
+        exit.translatesAutoresizingMaskIntoConstraints = false
+        return exit
+    }()
+
+    //MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setupButtons()
         view.backgroundColor = .systemMint
     }
-    
-    //MARK: - Methods
+
     private func setupButtons() {
         view.addSubview(alertButton)
         view.addSubview(exitButton)
-        alertButton.configuration = .filled()
-        alertButton.configuration?.baseBackgroundColor = .systemPink
-        alertButton.configuration?.title = "Alert!"
-        alertButton.addTarget(self, action: #selector(alertAction), for: .touchUpInside)
-        
-        exitButton.configuration = .filled()
-        exitButton.configuration?.baseBackgroundColor = .darkGray
-        exitButton.configuration?.title = "Exit!"
-        exitButton.addTarget(self, action: #selector(exitAction), for: .touchUpInside)
-        
-        alertButton.translatesAutoresizingMaskIntoConstraints = false
-        exitButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             alertButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
