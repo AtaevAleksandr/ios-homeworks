@@ -8,7 +8,7 @@
 import UIKit
 
 final class ProfileHeaderView: UIView {
-
+    
     //MARK: - Closures
     private var userAvatar: UIImageView = {
         let avatar = UIImageView()
@@ -21,8 +21,8 @@ final class ProfileHeaderView: UIView {
         avatar.translatesAutoresizingMaskIntoConstraints = false
         return avatar
     }()
-
-    private let userNameLabel: UILabel = {
+    
+    let userNameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.text = "Serious Rock"
         nameLabel.textColor = .black
@@ -30,22 +30,22 @@ final class ProfileHeaderView: UIView {
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         return nameLabel
     }()
-
+    
     private let subStatusLabel: UILabel = {
         let subLabel = UILabel()
         subLabel.text = "Waiting for something..."
-        subLabel.textColor = .gray
+        subLabel.textColor = .lightText
         subLabel.font = UIFont(name: "Rockwell-Regular", size: 14)
         subLabel.translatesAutoresizingMaskIntoConstraints = false
         return subLabel
     }()
-
-    private lazy var setStatusButton: UIButton = {
+    
+    lazy var setStatusButton: UIButton = {
         let statusButton = UIButton()
-        statusButton.setTitle("Show status", for: .normal)
-        statusButton.setTitleColor(.white, for: .normal)
-        statusButton.backgroundColor = .systemBlue
-        statusButton.layer.cornerRadius = 15
+        statusButton.configuration = .filled()
+        statusButton.configuration?.baseBackgroundColor = .systemBlue
+        statusButton.configuration?.cornerStyle = .large
+        statusButton.configuration?.title = "Show status"
         statusButton.layer.shadowColor = UIColor.black.cgColor
         statusButton.layer.shadowOffset = CGSize(width: 4, height: 4)
         statusButton.layer.shadowRadius = 4
@@ -54,7 +54,7 @@ final class ProfileHeaderView: UIView {
         statusButton.translatesAutoresizingMaskIntoConstraints = false
         return statusButton
     }()
-
+    
     private lazy var setStatusTextField: UITextField = {
         let statusTextField = UITextField()
         statusTextField.backgroundColor = .white
@@ -70,10 +70,10 @@ final class ProfileHeaderView: UIView {
         statusTextField.translatesAutoresizingMaskIntoConstraints = false
         return statusTextField
     }()
-
+    
     //MARK: - Property
     private var statusText: String = ""
-
+    
     //MARK: - Methods
     func setupSettings() {
         addSubview(userAvatar)
@@ -81,49 +81,51 @@ final class ProfileHeaderView: UIView {
         addSubview(subStatusLabel)
         addSubview(setStatusButton)
         addSubview(setStatusTextField)
-
+        
         //Constraints
         NSLayoutConstraint.activate([
             //avatar
             userAvatar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
-            userAvatar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            userAvatar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
             userAvatar.widthAnchor.constraint(equalToConstant: 130),
             userAvatar.heightAnchor.constraint(equalToConstant: 130),
-
+            
             //name label
             userNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 27),
             userNameLabel.leadingAnchor.constraint(equalTo: userAvatar.trailingAnchor, constant: 10),
-            userNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            userNameLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
             userNameLabel.heightAnchor.constraint(equalToConstant: 20),
-
+            
             //sub label
+            subStatusLabel.topAnchor.constraint(equalTo: userNameLabel.bottomAnchor, constant: 40),
             subStatusLabel.leadingAnchor.constraint(equalTo: userAvatar.trailingAnchor, constant: 10),
-            subStatusLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            subStatusLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
             subStatusLabel.bottomAnchor.constraint(equalTo: setStatusTextField.topAnchor, constant: -16),
             subStatusLabel.heightAnchor.constraint(equalToConstant: 18),
-
+            
             //text field
+            setStatusTextField.topAnchor.constraint(equalTo: subStatusLabel.bottomAnchor, constant: 16),
             setStatusTextField.leadingAnchor.constraint(equalTo: userAvatar.trailingAnchor, constant: 10),
-            setStatusTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            setStatusTextField.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
             setStatusTextField.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -16),
             setStatusTextField.heightAnchor.constraint(equalToConstant: 40),
-
+            
             //status button
-            setStatusButton.topAnchor.constraint(equalTo: userAvatar.bottomAnchor, constant: 60),
-            setStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            setStatusButton.topAnchor.constraint(equalTo: setStatusTextField.bottomAnchor, constant: 20),
+            setStatusButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            setStatusButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
             setStatusButton.heightAnchor.constraint(equalToConstant: 50)
-
+            
         ])
     }
-
-    @objc private func buttonPressed(_ sender: UIButton) {
+    
+    @objc private func buttonPressed() {
         subStatusLabel.text = statusText
         print(subStatusLabel.text ?? "nil")
         setStatusTextField.text = .none
         setStatusTextField.resignFirstResponder()
     }
-
+    
     @objc private func statusLabelChanged(_ textField: UITextField) {
         textField.becomeFirstResponder()
         if let text = textField.text {
