@@ -55,7 +55,8 @@ final class InfoViewController: UIViewController {
     }
     
     @objc func alertAction() {
-        let alertController = UIAlertController(title: "Attention!", message: "To exit this page, click the 'Exit!' button!", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Attention!", message: "To exit this page, click the 'Exit!' button!",
+                                                preferredStyle: .alert)
         let alertOkAction = UIAlertAction(title: "OK", style: .destructive) { _ in
             print("'OK' is tapped!")
         }

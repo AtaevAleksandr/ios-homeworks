@@ -68,6 +68,7 @@ final class ProfileHeaderView: UIView {
         statusTextField.leftViewMode = .always
         statusTextField.addTarget(self, action: #selector(statusLabelChanged), for: .editingChanged)
         statusTextField.translatesAutoresizingMaskIntoConstraints = false
+        setKeyboardSettings(forUITextField: statusTextField)
         return statusTextField
     }()
     
@@ -123,13 +124,32 @@ final class ProfileHeaderView: UIView {
         subStatusLabel.text = statusText
         print(subStatusLabel.text ?? "nil")
         setStatusTextField.text = .none
-        setStatusTextField.resignFirstResponder()
     }
     
     @objc private func statusLabelChanged(_ textField: UITextField) {
-        textField.becomeFirstResponder()
         if let text = textField.text {
             statusText = text
         }
+    }
+}
+
+extension ProfileHeaderView: UITextFieldDelegate {
+    private func setKeyboardSettings(forUITextField textField: UITextField) {
+        textField.delegate = self
+        textField.autocorrectionType = .no
+        textField.returnKeyType = .done
+        textField.enablesReturnKeyAutomatically = true
+        let tapOnView = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        addGestureRecognizer(tapOnView)
+    }
+
+    @objc private func dismissKeyboard() {
+        endEditing(true)
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        subStatusLabel.text = statusText
+        dismissKeyboard()
+        return true
     }
 }
