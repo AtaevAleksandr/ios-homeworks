@@ -17,7 +17,7 @@ extension SceneDelegate {
     }
 
     private func createSecondController() -> UINavigationController {
-        let navigationController = UINavigationController(rootViewController: ProfileViewController())
+        let navigationController = UINavigationController(rootViewController: LogInViewController())
         navigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.fill"), tag: 1)
         return navigationController
     }
@@ -25,6 +25,8 @@ extension SceneDelegate {
     func createTabBarController() -> UITabBarController {
         let tabBar = UITabBarController()
         tabBar.viewControllers = [createFirstController(), createSecondController()]
+        tabBar.tabBar.layer.borderWidth = 0.5
+        tabBar.tabBar.layer.borderColor = UIColor.lightGray.cgColor
         tabBar.tabBar.backgroundColor = .white    // УБРАТЬ, ЕСЛИ ХОТИТЕ ПРОВЕРИТЬ КОСТОМНЫЙ ТАББАР, КОТОРЫЙ НИЖЕ
 
         //Set Tab Bar Appearance
