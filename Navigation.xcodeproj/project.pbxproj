@@ -15,6 +15,8 @@
 		5B1C18182930D71F006CAC62 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1C18172930D71F006CAC62 /* ProfileViewController.swift */; };
 		5B1C181A2930DDDB006CAC62 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1C18192930DDDB006CAC62 /* PostViewController.swift */; };
 		5B1E9AFD2931218D00E9575F /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1E9AFC2931218D00E9575F /* InfoViewController.swift */; };
+		5B33CC23296851410030FF10 /* PostTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B33CC22296851410030FF10 /* PostTitle.swift */; };
+		5B33CC2729686A420030FF10 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B33CC2629686A420030FF10 /* PostTableViewCell.swift */; };
 		5B6E604129361B7A002A9B80 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E604029361B7A002A9B80 /* ProfileHeaderView.swift */; };
 		5B74EB8129315F4000D64699 /* Extension + SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B74EB8029315F4000D64699 /* Extension + SceneDelegate.swift */; };
 		5BE2AB0829315203000E1FE6 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE2AB0729315203000E1FE6 /* Post.swift */; };
@@ -32,6 +34,8 @@
 		5B1C18172930D71F006CAC62 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		5B1C18192930DDDB006CAC62 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		5B1E9AFC2931218D00E9575F /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		5B33CC22296851410030FF10 /* PostTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTitle.swift; sourceTree = "<group>"; };
+		5B33CC2629686A420030FF10 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		5B6E604029361B7A002A9B80 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		5B74EB8029315F4000D64699 /* Extension + SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + SceneDelegate.swift"; sourceTree = "<group>"; };
 		5BE2AB0729315203000E1FE6 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -121,6 +125,8 @@
 				5B1C18032930D493006CAC62 /* SceneDelegate.swift */,
 				5BE2AB0729315203000E1FE6 /* Post.swift */,
 				5B74EB8029315F4000D64699 /* Extension + SceneDelegate.swift */,
+				5B33CC22296851410030FF10 /* PostTitle.swift */,
+				5B33CC2629686A420030FF10 /* PostTableViewCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -196,9 +202,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B1C18022930D493006CAC62 /* AppDelegate.swift in Sources */,
+				5B33CC23296851410030FF10 /* PostTitle.swift in Sources */,
 				5B1C18162930D707006CAC62 /* FeedViewController.swift in Sources */,
 				5B1C18182930D71F006CAC62 /* ProfileViewController.swift in Sources */,
 				5B1C18042930D493006CAC62 /* SceneDelegate.swift in Sources */,
+				5B33CC2729686A420030FF10 /* PostTableViewCell.swift in Sources */,
 				5B6E604129361B7A002A9B80 /* ProfileHeaderView.swift in Sources */,
 				5B1E9AFD2931218D00E9575F /* InfoViewController.swift in Sources */,
 				5B74EB8129315F4000D64699 /* Extension + SceneDelegate.swift in Sources */,

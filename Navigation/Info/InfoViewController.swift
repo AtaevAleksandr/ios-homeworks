@@ -10,7 +10,7 @@ import UIKit
 final class InfoViewController: UIViewController {
 
     //MARK: - Clousers
-    private let alertButton: UIButton = {
+    private lazy var alertButton: UIButton = {
         let alert = UIButton()
         alert.configuration = .filled()
         alert.configuration?.baseBackgroundColor = .systemPink
@@ -20,7 +20,7 @@ final class InfoViewController: UIViewController {
         return alert
     }()
 
-    private let exitButton: UIButton = {
+    private lazy var exitButton: UIButton = {
         let exit = UIButton()
         exit.configuration = .filled()
         exit.configuration?.baseBackgroundColor = .darkGray
@@ -55,7 +55,8 @@ final class InfoViewController: UIViewController {
     }
     
     @objc func alertAction() {
-        let alertController = UIAlertController(title: "Attention!", message: "To exit this page, click the 'Exit!' button!", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Attention!", message: "To exit this page, click the 'Exit!' button!",
+                                                preferredStyle: .alert)
         let alertOkAction = UIAlertAction(title: "OK", style: .destructive) { _ in
             print("'OK' is tapped!")
         }

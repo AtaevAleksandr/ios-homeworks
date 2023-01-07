@@ -41,7 +41,7 @@ final class FeedViewController: UIViewController {
     }()
     
     //MARK: - Properties
-    private var postTitle = Post(title: "You are in Post View!")
+    private var postTitle = PostTitle(title: "You are in Post View!")
     
     override func viewDidLoad() {
         super.viewDidLoad()
