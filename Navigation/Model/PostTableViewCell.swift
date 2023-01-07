@@ -89,7 +89,7 @@ class PostTableViewCell: UITableViewCell {
             likesLable.trailingAnchor.constraint(equalTo: viewsLabel.leadingAnchor),
             likesLable.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
 
-            viewsLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor),
+            viewsLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 16),
             viewsLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             viewsLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
         ])
@@ -97,10 +97,10 @@ class PostTableViewCell: UITableViewCell {
 
     func set(views: Post) {
         authorLabel.text = views.author
-        postImage.image = views.image
+        postImage.image = UIImage(named: views.image)
         descriptionLabel.text = views.description
-        likesLable.text = String(views.likes)
-        viewsLabel.text = String(views.views)
+        likesLable.text = "Likes: \(views.likes)"
+        viewsLabel.text = "Views: \(views.views)"
     }
 
 }

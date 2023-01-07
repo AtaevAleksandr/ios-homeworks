@@ -10,7 +10,7 @@ import UIKit
 final class InfoViewController: UIViewController {
 
     //MARK: - Clousers
-    private let alertButton: UIButton = {
+    private lazy var alertButton: UIButton = {
         let alert = UIButton()
         alert.configuration = .filled()
         alert.configuration?.baseBackgroundColor = .systemPink
@@ -20,7 +20,7 @@ final class InfoViewController: UIViewController {
         return alert
     }()
 
-    private let exitButton: UIButton = {
+    private lazy var exitButton: UIButton = {
         let exit = UIButton()
         exit.configuration = .filled()
         exit.configuration?.baseBackgroundColor = .darkGray

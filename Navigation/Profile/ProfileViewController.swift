@@ -51,29 +51,9 @@ final class ProfileViewController: UIViewController {
     }()
 
     //MARK: - Properties
-    private let posts = [
-        Post(author: "chrishemsworth",
-             description: "Be your own BOSS with the new BOSS Bottled Parfum out now. #BOSSBottled #BeYourOwnBOSS @BOSS",
-             image: UIImage(named: "ChrisHemsworth")!,
-             likes: "Likes: 906 982",
-             views: "Views: 1 540 324"),
-        Post(author: "prideofgypsies",
-             description: "love you @gueikian and @gibsoncustom for saving me the last greene. @kirkhammett i’m so stoked. @metallica fo life. all my aloha j",
-             image: UIImage(named: "JasonMomoa")!,
-             likes: "Likes: 405 015",
-             views: "Views: 704 234"),
-        Post(author: "emilia_clarke",
-             description: "When life (or a supporting artist) gives you dragons, you make them make kissy noises.",
-             image: UIImage(named: "EmiliaClarke")!,
-             likes: "Likes: 1 359 161",
-             views: "Views: 1 795 432"),
-        Post(author: "therock",
-             description: "12am 🕛 🥳 Insanely fun New Years Eve party last night as the clock struck midnight to usher in 2023.",
-             image: UIImage(named: "DwayneJohnson")!,
-             likes: "Likes: 1 604 914",
-             views: "Views: 2 050 543")
-    ]
-    
+    private let posts = Post.posts
+
+    //MARK: - Methods
     private func setConstraints() {
         NSLayoutConstraint.activate([
             //profile header view
@@ -91,6 +71,7 @@ final class ProfileViewController: UIViewController {
     }
 }
 
+//MARK: - Extensions
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
