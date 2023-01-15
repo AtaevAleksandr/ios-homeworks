@@ -8,20 +8,21 @@
 import UIKit
 
 final class ProfileViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGray3
         navigationItem.title = "Profile"
-        view.addSubview(profileHeaderView)
-        view.addSubview(tableView)
-        profileHeaderView.setupSettings()
-        setConstraints()
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: Cells.myTableViewCell)
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: Cells.postCell)
+        tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: Cells.photoCell)
+        view.addSubview(tableView)
+        view.addSubview(profileHeaderView)
+        profileHeaderView.setupSettings()
+        setConstraints()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let appearance = UINavigationBarAppearance()
@@ -30,9 +31,10 @@ final class ProfileViewController: UIViewController {
         navigationController?.navigationBar.compactAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
-
+    
     struct Cells {
-        static let myTableViewCell = "PostTableViewCell"
+        static let postCell = "PostTableViewCell"
+        static let photoCell = "PhotoTableViewCell"
     }
     
     //MARK: - Clousers
@@ -42,26 +44,28 @@ final class ProfileViewController: UIViewController {
         profileView.backgroundColor = .systemGray3
         return profileView
     }()
-
+    
     private lazy var tableView: UITableView = {
         let tableViewList = UITableView()
         tableViewList.rowHeight = UITableView.automaticDimension
         tableViewList.translatesAutoresizingMaskIntoConstraints = false
         return tableViewList
     }()
-
+    
     //MARK: - Properties
     private let posts = Post.posts
-
+    private let photos = Photo.photos
+    private var photoTitle = Title(title: "Photo Gallery")
+    
     //MARK: - Methods
     private func setConstraints() {
         NSLayoutConstraint.activate([
             //profile header view
             profileHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             profileHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            profileHeaderView.heightAnchor.constraint(equalToConstant: 250),
-            profileHeaderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-
+            profileHeaderView.heightAnchor.constraint(equalToConstant: 300),
+            profileHeaderView.topAnchor.constraint(equalTo: view.topAnchor),
+            
             //table view list
             tableView.topAnchor.constraint(equalTo: profileHeaderView.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -73,18 +77,43 @@ final class ProfileViewController: UIViewController {
 
 //MARK: - Extensions
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return posts.count
+        switch section {
+        case 0:
+            return 1
+        default:
+            return posts.count
+        }
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Cells.myTableViewCell) as! PostTableViewCell
-        let views = posts[indexPath.row]
-        cell.set(views: views)
-        return cell
+        switch indexPath.section {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Cells.photoCell) as! PhotosTableViewCell
+            let photos = photos[indexPath.row]
+            cell.set(photos: photos)
+            return cell
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Cells.postCell) as! PostTableViewCell
+            let views = posts[indexPath.row]
+            cell.set(views: views)
+            return cell
+        }
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+        switch indexPath.section {
+        case 0:
+            let newViewController = PhotosViewController()
+            newViewController.title = photoTitle.title
+            tableView.deselectRow(at: indexPath, animated: true)
+            navigationController?.pushViewController(newViewController, animated: true)
+        default:
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
 }

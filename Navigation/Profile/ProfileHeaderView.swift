@@ -77,11 +77,7 @@ final class ProfileHeaderView: UIView {
     
     //MARK: - Methods
     func setupSettings() {
-        addSubview(userAvatar)
-        addSubview(userNameLabel)
-        addSubview(subStatusLabel)
-        addSubview(setStatusButton)
-        addSubview(setStatusTextField)
+        [userAvatar, userNameLabel, subStatusLabel, setStatusTextField, setStatusButton].forEach { addSubview($0) }
         
         //Constraints
         NSLayoutConstraint.activate([
@@ -116,7 +112,6 @@ final class ProfileHeaderView: UIView {
             setStatusButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
             setStatusButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
             setStatusButton.heightAnchor.constraint(equalToConstant: 50)
-            
         ])
     }
     
