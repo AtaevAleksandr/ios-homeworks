@@ -14,7 +14,7 @@ class PostTableViewCell: UITableViewCell {
         addSubview(authorLabel)
         addSubview(descriptionLabel)
         addSubview(postImage)
-        addSubview(likesLable)
+        addSubview(likesLabel)
         addSubview(viewsLabel)
         setConstraints()
     }
@@ -50,7 +50,7 @@ class PostTableViewCell: UITableViewCell {
         return image
     }()
 
-    lazy var likesLable: UILabel = {
+    lazy var likesLabel: UILabel = {
         let likes = UILabel()
         likes.font = .systemFont(ofSize: 16)
         likes.textColor = .black
@@ -84,10 +84,10 @@ class PostTableViewCell: UITableViewCell {
             descriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
 
-            likesLable.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 16),
-            likesLable.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            likesLable.trailingAnchor.constraint(equalTo: viewsLabel.leadingAnchor),
-            likesLable.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+            likesLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 16),
+            likesLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            likesLabel.trailingAnchor.constraint(equalTo: viewsLabel.leadingAnchor),
+            likesLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
 
             viewsLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 16),
             viewsLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
@@ -99,7 +99,7 @@ class PostTableViewCell: UITableViewCell {
         authorLabel.text = views.author
         postImage.image = UIImage(named: views.image)
         descriptionLabel.text = views.description
-        likesLable.text = "Likes: \(views.likes)"
+        likesLabel.text = "Likes: \(views.likes)"
         viewsLabel.text = "Views: \(views.views)"
     }
 

@@ -41,12 +41,13 @@ final class FeedViewController: UIViewController {
     }()
     
     //MARK: - Properties
-    private var postTitle = PostTitle(title: "You are in Post View!")
+    private var postTitle = Title(title: "Post")
+    private var feedTitle = Title(title: "Feed")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .gray
-        navigationItem.title = "Feed"
+        navigationItem.title = feedTitle.title
         settings()
         setConstraints()
     }
