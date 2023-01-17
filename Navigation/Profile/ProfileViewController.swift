@@ -11,42 +11,24 @@ final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemGray3
-        navigationItem.title = "Profile"
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: Cells.postCell)
-        tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: Cells.photoCell)
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: Identifiers.postCell)
+        tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: Identifiers.photoCell)
+        tableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: Identifiers.headerID)
         view.addSubview(tableView)
-        view.addSubview(profileHeaderView)
-        profileHeaderView.setupSettings()
         setConstraints()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = .white
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.compactAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-    }
-    
-    struct Cells {
+    struct Identifiers {
         static let postCell = "PostTableViewCell"
         static let photoCell = "PhotoTableViewCell"
+        static let headerID = "ProfileHeaderView"
     }
     
     //MARK: - Clousers
-    private lazy var profileHeaderView: ProfileHeaderView = {
-        let profileView = ProfileHeaderView()
-        profileView.translatesAutoresizingMaskIntoConstraints = false
-        profileView.backgroundColor = .systemGray3
-        return profileView
-    }()
-    
     private lazy var tableView: UITableView = {
-        let tableViewList = UITableView()
+        let tableViewList = UITableView(frame: .zero, style: .grouped)
         tableViewList.rowHeight = UITableView.automaticDimension
         tableViewList.translatesAutoresizingMaskIntoConstraints = false
         return tableViewList
@@ -60,14 +42,7 @@ final class ProfileViewController: UIViewController {
     //MARK: - Methods
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            //profile header view
-            profileHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            profileHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            profileHeaderView.heightAnchor.constraint(equalToConstant: 300),
-            profileHeaderView.topAnchor.constraint(equalTo: view.topAnchor),
-            
-            //table view list
-            tableView.topAnchor.constraint(equalTo: profileHeaderView.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -93,12 +68,12 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Cells.photoCell) as! PhotosTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.photoCell) as! PhotosTableViewCell
             let photos = photos[indexPath.row]
             cell.set(photos: photos)
             return cell
         default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Cells.postCell) as! PostTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.postCell) as! PostTableViewCell
             let views = posts[indexPath.row]
             cell.set(views: views)
             return cell
@@ -115,5 +90,16 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         default:
             tableView.deselectRow(at: indexPath, animated: true)
         }
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard section == 0 else { return nil }
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: Identifiers.headerID)
+        return header
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        guard section == 0 else { return 0 }
+        return 250
     }
 }
