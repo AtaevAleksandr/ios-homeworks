@@ -11,7 +11,6 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
 
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        contentView.backgroundColor = .systemGray5
         setupSettings()
     }
 
@@ -19,8 +18,12 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    //MARK: - Properties
+    private var statusText: String = ""
+    private var userAvatarStartPoint = CGPoint()
+
     //MARK: - Closures
-    private var userAvatar: UIImageView = {
+    private lazy var userAvatar: UIImageView = {
         let avatar = UIImageView()
         avatar.image = UIImage(named: "Rock.jpg")
         avatar.contentMode = .scaleAspectFit
@@ -29,10 +32,35 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
         avatar.layer.borderColor = UIColor.white.cgColor
         avatar.layer.cornerRadius = 130 / 2
         avatar.translatesAutoresizingMaskIntoConstraints = false
+        avatarGestureSettings(imageView: avatar)
         return avatar
     }()
+
+    private lazy var userAvatarBackrgound: UIView = {
+        let background = UIView(frame: CGRect(x: 0,
+                                              y: 0,
+                                              width: UIScreen.main.bounds.width,
+                                              height: UIScreen.main.bounds.height))
+        background.backgroundColor = .darkGray
+        background.isHidden = true
+        background.alpha = 0
+        return background
+    }()
+
+    private lazy var backButtonOnBackgroundView: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .clear
+        button.alpha = 0
+        button.contentMode = .scaleToFill
+        button.setImage(UIImage(systemName: "xmark", withConfiguration: UIImage.SymbolConfiguration(pointSize: 25)
+                               )?.withTintColor(.black, renderingMode: .automatic), for: .normal)
+        button.tintColor = .black
+        button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     
-    let userNameLabel: UILabel = {
+    private let userNameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.text = "Serious Rock"
         nameLabel.textColor = .black
@@ -82,12 +110,10 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
         return statusTextField
     }()
     
-    //MARK: - Property
-    private var statusText: String = ""
-    
     //MARK: - Methods
     func setupSettings() {
-        [userAvatar, userNameLabel, subStatusLabel, setStatusTextField, setStatusButton].forEach { contentView.addSubview($0) }
+        [userNameLabel, subStatusLabel, setStatusTextField, setStatusButton,
+         userAvatarBackrgound, userAvatar, backButtonOnBackgroundView].forEach { contentView.addSubview($0) }
 
         NSLayoutConstraint.activate([
             userAvatar.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 16),
@@ -115,19 +141,60 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
             setStatusButton.topAnchor.constraint(equalTo: setStatusTextField.bottomAnchor, constant: 20),
             setStatusButton.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             setStatusButton.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            setStatusButton.heightAnchor.constraint(equalToConstant: 50)
+            setStatusButton.heightAnchor.constraint(equalToConstant: 50),
+
+            backButtonOnBackgroundView.topAnchor.constraint(equalTo: topAnchor),
+            backButtonOnBackgroundView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
         ])
     }
     
     @objc private func buttonPressed() {
         subStatusLabel.text = statusText
-        print(subStatusLabel.text ?? "nil")
-        setStatusTextField.text = .none
+        setStatusTextField.text = nil
+        dismissKeyboard()
     }
     
     @objc private func statusLabelChanged(_ textField: UITextField) {
         if let text = textField.text {
             statusText = text
+        }
+    }
+}
+
+//MARK: - Extensions
+extension ProfileHeaderView {
+    private func avatarGestureSettings(imageView: UIImageView) {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(avatarTapped))
+        tapGesture.numberOfTapsRequired = 1
+        tapGesture.numberOfTouchesRequired = 1
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(tapGesture)
+    }
+
+    @objc private func avatarTapped() {
+        userAvatar.isUserInteractionEnabled = false
+        userAvatarStartPoint = userAvatar.center
+        let scale = UIScreen.main.bounds.width / userAvatar.bounds.width
+        UIView.animate(withDuration: 0.5) {
+            self.userAvatar.center = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY - self.userAvatarStartPoint.y)
+            self.userAvatar.transform = CGAffineTransform(scaleX: scale, y: scale)
+            self.userAvatar.layer.cornerRadius = 0
+            self.userAvatarBackrgound.isHidden = false
+            self.userAvatarBackrgound.alpha = 0.8
+        } completion: { _ in
+            UIView.animate(withDuration: 0.5) {
+                self.backButtonOnBackgroundView.alpha = 1
+            }
+        }
+    }
+
+    @objc private func backButtonTapped() {
+        UIImageView.animate(withDuration: 0.3) {
+            self.backButtonOnBackgroundView.alpha = 0
+            self.userAvatar.center = self.userAvatarStartPoint
+            self.userAvatar.transform = CGAffineTransform(scaleX: 1, y: 1)
+            self.userAvatar.layer.cornerRadius = self.userAvatar.frame.height / 2
+            self.userAvatarBackrgound.alpha = 0
         }
     }
 }
@@ -148,6 +215,7 @@ extension ProfileHeaderView: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         subStatusLabel.text = statusText
+        setStatusTextField.text = nil
         dismissKeyboard()
         return true
     }
