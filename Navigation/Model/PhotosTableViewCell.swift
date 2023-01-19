@@ -23,7 +23,7 @@ class PhotosTableViewCell: UITableViewCell {
     //MARK: - Clousers
     private lazy var photoLabel: UILabel = {
         let label = UILabel()
-        label.text = "Photos"
+        label.text = "My friend's photos"
         label.textColor = .black
         label.font = .boldSystemFont(ofSize: 24)
         label.textAlignment = .left
