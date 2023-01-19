@@ -90,22 +90,16 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         default:
             tableView.deselectRow(at: indexPath, animated: true)
         }
-        let tapOnView = UITapGestureRecognizer(target: self, action: #selector(dissmissKeyboard))
-        view.addGestureRecognizer(tapOnView)
     }
-
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard section == 0 else { return nil }
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: Identifiers.headerID)
         return header
     }
-
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         guard section == 0 else { return 0 }
         return 250
-    }
-
-    @objc func dissmissKeyboard() {
-        view.endEditing(true)
     }
 }

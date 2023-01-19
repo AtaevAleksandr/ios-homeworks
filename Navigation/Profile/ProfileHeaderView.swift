@@ -189,10 +189,11 @@ extension ProfileHeaderView {
     }
 
     @objc private func backButtonTapped() {
-        UIImageView.animate(withDuration: 0.3) {
+        userAvatar.isUserInteractionEnabled = true
+        UIView.animate(withDuration: 0.3) {
             self.backButtonOnBackgroundView.alpha = 0
             self.userAvatar.center = self.userAvatarStartPoint
-            self.userAvatar.transform = CGAffineTransform(scaleX: 1, y: 1)
+            self.userAvatar.transform = CGAffineTransform.identity
             self.userAvatar.layer.cornerRadius = self.userAvatar.frame.height / 2
             self.userAvatarBackrgound.alpha = 0
         }
