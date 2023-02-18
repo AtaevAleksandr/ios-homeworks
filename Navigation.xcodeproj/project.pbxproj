@@ -20,9 +20,11 @@
 		5B3C19AE2974606B0074D5F4 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3C19AD2974606B0074D5F4 /* PhotosCollectionViewCell.swift */; };
 		5B6E604129361B7A002A9B80 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E604029361B7A002A9B80 /* ProfileHeaderView.swift */; };
 		5B74EB8129315F4000D64699 /* Extension + SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B74EB8029315F4000D64699 /* Extension + SceneDelegate.swift */; };
+		5B7DBC9429945D5900B777EB /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7DBC9329945D5900B777EB /* Data.swift */; };
 		5B93580229703C1D00CABAAE /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93580129703C1D00CABAAE /* PhotosTableViewCell.swift */; };
 		5B93580429703D1200CABAAE /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93580329703D1200CABAAE /* Photos.swift */; };
 		5B9358082970973E00CABAAE /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9358072970973E00CABAAE /* PhotosViewController.swift */; };
+		5BD13BE4299F5D7800BDF1C1 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD13BE3299F5D7800BDF1C1 /* PostDetailViewController.swift */; };
 		5BE2AB0829315203000E1FE6 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE2AB0729315203000E1FE6 /* Post.swift */; };
 		5BE93135295C734F00A27D2B /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE93134295C734F00A27D2B /* LogInViewController.swift */; };
 /* End PBXBuildFile section */
@@ -43,9 +45,11 @@
 		5B3C19AD2974606B0074D5F4 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		5B6E604029361B7A002A9B80 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		5B74EB8029315F4000D64699 /* Extension + SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + SceneDelegate.swift"; sourceTree = "<group>"; };
+		5B7DBC9329945D5900B777EB /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		5B93580129703C1D00CABAAE /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
 		5B93580329703D1200CABAAE /* Photos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
 		5B9358072970973E00CABAAE /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
+		5BD13BE3299F5D7800BDF1C1 /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		5BE2AB0729315203000E1FE6 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		5BE93134295C734F00A27D2B /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -80,6 +84,7 @@
 		5B1C18002930D493006CAC62 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				5BD13BE2299F573500BDF1C1 /* App */,
 				5B6E604529361E6D002A9B80 /* Model */,
 				5B6E603F29361B04002A9B80 /* Profile */,
 				5B6E604229361DF5002A9B80 /* Feed */,
@@ -122,7 +127,9 @@
 		5B6E604429361E45002A9B80 /* Post */ = {
 			isa = PBXGroup;
 			children = (
+				5B33CC2629686A420030FF10 /* PostTableViewCell.swift */,
 				5B1C18192930DDDB006CAC62 /* PostViewController.swift */,
+				5BD13BE3299F5D7800BDF1C1 /* PostDetailViewController.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -130,15 +137,11 @@
 		5B6E604529361E6D002A9B80 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				5B1C18012930D493006CAC62 /* AppDelegate.swift */,
-				5B1C18032930D493006CAC62 /* SceneDelegate.swift */,
 				5B74EB8029315F4000D64699 /* Extension + SceneDelegate.swift */,
 				5BE2AB0729315203000E1FE6 /* Post.swift */,
 				5B33CC22296851410030FF10 /* Title.swift */,
-				5B33CC2629686A420030FF10 /* PostTableViewCell.swift */,
-				5B93580129703C1D00CABAAE /* PhotosTableViewCell.swift */,
 				5B93580329703D1200CABAAE /* Photos.swift */,
-				5B3C19AD2974606B0074D5F4 /* PhotosCollectionViewCell.swift */,
+				5B7DBC9329945D5900B777EB /* Data.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -154,9 +157,20 @@
 		5B9358062970971200CABAAE /* Photo */ = {
 			isa = PBXGroup;
 			children = (
+				5B3C19AD2974606B0074D5F4 /* PhotosCollectionViewCell.swift */,
+				5B93580129703C1D00CABAAE /* PhotosTableViewCell.swift */,
 				5B9358072970973E00CABAAE /* PhotosViewController.swift */,
 			);
 			path = Photo;
+			sourceTree = "<group>";
+		};
+		5BD13BE2299F573500BDF1C1 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				5B1C18012930D493006CAC62 /* AppDelegate.swift */,
+				5B1C18032930D493006CAC62 /* SceneDelegate.swift */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,6 +256,8 @@
 				5B74EB8129315F4000D64699 /* Extension + SceneDelegate.swift in Sources */,
 				5B93580229703C1D00CABAAE /* PhotosTableViewCell.swift in Sources */,
 				5BE2AB0829315203000E1FE6 /* Post.swift in Sources */,
+				5BD13BE4299F5D7800BDF1C1 /* PostDetailViewController.swift in Sources */,
+				5B7DBC9429945D5900B777EB /* Data.swift in Sources */,
 				5B3C19AE2974606B0074D5F4 /* PhotosCollectionViewCell.swift in Sources */,
 				5BE93135295C734F00A27D2B /* LogInViewController.swift in Sources */,
 				5B1C181A2930DDDB006CAC62 /* PostViewController.swift in Sources */,
@@ -387,7 +403,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Navigation/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -414,7 +430,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Navigation/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

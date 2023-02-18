@@ -13,7 +13,7 @@ class PhotosViewController: UIViewController {
         super.viewDidLoad()
         photosCollectionView.delegate = self
         photosCollectionView.dataSource = self
-        view.addSubview(photosCollectionView)
+        [photosCollectionView, background, fullScreenImage].forEach { view.addSubview($0) }
         setConstraints()
     }
 
@@ -24,11 +24,15 @@ class PhotosViewController: UIViewController {
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         navigationController?.navigationBar.isHidden = false
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(closeImage))
+        navigationItem.rightBarButtonItem?.isHidden = true
+        navigationController?.tabBarController?.tabBar.isHidden = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.isHidden = true
+        navigationController?.tabBarController?.tabBar.isHidden = false
     }
 
     struct Cell {
@@ -50,6 +54,25 @@ class PhotosViewController: UIViewController {
         return collectionView
     }()
 
+    private lazy var background: UIView = {
+        let view = UIView(frame: CGRect(x: 0,
+                                        y: 0,
+                                        width: UIScreen.main.bounds.width,
+                                        height: UIScreen.main.bounds.height))
+        view.backgroundColor = .darkGray
+        view.isHidden = true
+        view.alpha = 0
+        return view
+    }()
+
+    private lazy var fullScreenImage: UIImageView = {
+        let image = UIImageView()
+        image.contentMode = .scaleAspectFit
+        image.alpha = 0
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+
     //MARK: - Propeties
     private let photos = Photo.photos
 
@@ -59,7 +82,11 @@ class PhotosViewController: UIViewController {
             photosCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
             photosCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             photosCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            photosCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            photosCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            fullScreenImage.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
+            fullScreenImage.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
+            fullScreenImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            fullScreenImage.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
 }
@@ -74,5 +101,28 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
         let photos = photos[indexPath.item]
         item.set(photos: photos)
         return item
+    }
+
+    @objc func closeImage(){
+        navigationItem.rightBarButtonItem?.isHidden = true
+        UIView.animate(withDuration: 0.4) { [self] in
+            fullScreenImage.alpha = 0
+            background.isHidden = true
+            background.alpha = 0
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let photos = photos[indexPath.item].image
+        fullScreenImage.image = UIImage(named: photos)
+        UIView.animate(withDuration: 0.7) { [self] in
+            fullScreenImage.alpha = 1
+            background.isHidden = false
+            background.alpha = 0.9
+        } completion: { _ in
+            UIView.animate(withDuration: 0.7) { [self] in
+                navigationItem.rightBarButtonItem?.isHidden = false
+            }
+        }
     }
 }
