@@ -19,7 +19,7 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
     }
 
     //MARK: - Properties
-    private var statusText: String = ""
+    private var statusText: String?
     private var userAvatarStartPoint = CGPoint()
 
     //MARK: - Closures
@@ -83,7 +83,7 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
         statusButton.configuration = .filled()
         statusButton.configuration?.baseBackgroundColor = .systemBlue
         statusButton.configuration?.cornerStyle = .large
-        statusButton.configuration?.title = "Show status"
+        statusButton.configuration?.title = "Set status"
         statusButton.layer.shadowColor = UIColor.black.cgColor
         statusButton.layer.shadowOffset = CGSize(width: 4, height: 4)
         statusButton.layer.shadowRadius = 4
@@ -96,7 +96,7 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
     private lazy var setStatusTextField: UITextField = {
         let statusTextField = UITextField()
         statusTextField.backgroundColor = .white
-        statusTextField.placeholder = "Write here..."
+        statusTextField.placeholder = "Write your status here..."
         statusTextField.textColor = .black
         statusTextField.font = UIFont(name: "Rockwell-Regular", size: 15)
         statusTextField.layer.cornerRadius = 12
@@ -149,15 +149,17 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
     }
     
     @objc private func buttonPressed() {
-        subStatusLabel.text = statusText
-        setStatusTextField.text = nil
-        dismissKeyboard()
+        if statusText != nil{
+            subStatusLabel.text = statusText
+            setStatusTextField.text = nil
+            dismissKeyboard()
+        } else {
+            setStatusTextField.shakeField()
+        }
     }
     
-    @objc private func statusLabelChanged(_ textField: UITextField) {
-        if let text = textField.text {
-            statusText = text
-        }
+    @objc private func statusLabelChanged() {
+        statusText = setStatusTextField.text
     }
 }
 
@@ -175,27 +177,27 @@ extension ProfileHeaderView {
         userAvatar.isUserInteractionEnabled = false
         userAvatarStartPoint = userAvatar.center
         let scale = UIScreen.main.bounds.width / userAvatar.bounds.width
-        UIView.animate(withDuration: 0.5) {
-            self.userAvatar.center = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY - self.userAvatarStartPoint.y)
-            self.userAvatar.transform = CGAffineTransform(scaleX: scale, y: scale)
-            self.userAvatar.layer.cornerRadius = 0
-            self.userAvatarBackrgound.isHidden = false
-            self.userAvatarBackrgound.alpha = 0.8
+        UIView.animate(withDuration: 0.5) { [self] in
+            userAvatar.center = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY - userAvatarStartPoint.y)
+            userAvatar.transform = CGAffineTransform(scaleX: scale, y: scale)
+            userAvatar.layer.cornerRadius = 0
+            userAvatarBackrgound.isHidden = false
+            userAvatarBackrgound.alpha = 0.8
         } completion: { _ in
-            UIView.animate(withDuration: 0.5) {
-                self.backButtonOnBackgroundView.alpha = 1
+            UIView.animate(withDuration: 0.5) { [self] in
+                backButtonOnBackgroundView.alpha = 1
             }
         }
     }
 
     @objc private func backButtonTapped() {
         userAvatar.isUserInteractionEnabled = true
-        UIView.animate(withDuration: 0.3) {
-            self.backButtonOnBackgroundView.alpha = 0
-            self.userAvatar.center = self.userAvatarStartPoint
-            self.userAvatar.transform = CGAffineTransform.identity
-            self.userAvatar.layer.cornerRadius = self.userAvatar.frame.height / 2
-            self.userAvatarBackrgound.alpha = 0
+        UIView.animate(withDuration: 0.3) { [self] in
+            backButtonOnBackgroundView.alpha = 0
+            userAvatar.center = self.userAvatarStartPoint
+            userAvatar.transform = CGAffineTransform.identity
+            userAvatar.layer.cornerRadius = self.userAvatar.frame.height / 2
+            userAvatarBackrgound.alpha = 0
         }
     }
 }

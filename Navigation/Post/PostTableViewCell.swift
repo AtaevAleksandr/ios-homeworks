@@ -9,18 +9,12 @@ import UIKit
 
 class PostTableViewCell: UITableViewCell {
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        addSubview(authorLabel)
-        addSubview(descriptionLabel)
-        addSubview(postImage)
-        addSubview(likesLabel)
-        addSubview(viewsLabel)
-        setConstraints()
-    }
+    private var index = 0
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        [authorLabel, descriptionLabel, postImage, likesLabel, viewsLabel].forEach { addSubview($0) }
+        setConstraints()
     }
 
     //MARK: - Clousers
@@ -56,6 +50,14 @@ class PostTableViewCell: UITableViewCell {
         likes.textColor = .black
         likes.textAlignment = .left
         likes.translatesAutoresizingMaskIntoConstraints = false
+        likes.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(addLike)
+        )
+        tapGesture.numberOfTapsRequired = 1
+        tapGesture.numberOfTouchesRequired = 1
+        likes.addGestureRecognizer(tapGesture)
         return likes
     }()
 
@@ -86,8 +88,9 @@ class PostTableViewCell: UITableViewCell {
 
             likesLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 16),
             likesLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            likesLabel.trailingAnchor.constraint(equalTo: viewsLabel.leadingAnchor),
             likesLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+            likesLabel.widthAnchor.constraint(equalToConstant: 150),
+            likesLabel.heightAnchor.constraint(equalToConstant: 50),
 
             viewsLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 16),
             viewsLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
@@ -95,12 +98,18 @@ class PostTableViewCell: UITableViewCell {
         ])
     }
 
-    func set(views: Post) {
-        authorLabel.text = views.author
-        postImage.image = UIImage(named: views.image)
-        descriptionLabel.text = views.description
-        likesLabel.text = "Likes: \(views.likes)"
-        viewsLabel.text = "Views: \(views.views)"
+    func set(with index: Int) {
+        self.index = index
+        authorLabel.text = Post.posts[index].author
+        postImage.image = UIImage(named: Post.posts[index].image)
+        descriptionLabel.text = Post.posts[index].description
+        likesLabel.text = "Likes: \(Post.posts[index].likes)"
+        viewsLabel.text = "Views: \(Post.posts[index].views)"
+    }
+
+    @objc func addLike() {
+        Post.posts[index].likes += 1
+        likesLabel.text = "Likes: \(Post.posts[index].likes)"
     }
 
 }

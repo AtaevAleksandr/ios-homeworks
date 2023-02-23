@@ -18,10 +18,10 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
     //MARK: - Clousers
     private lazy var imageView: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "Thor")
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -39,6 +39,7 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     func set(photos: Photo) {
         imageView.image = UIImage(named: photos.image)
     }
+
     override func layoutSubviews() {
         super.layoutSubviews()
         imageView.layer.cornerRadius = 10

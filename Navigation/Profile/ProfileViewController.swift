@@ -11,15 +11,16 @@ final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: Identifiers.postCell)
-        tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: Identifiers.photoCell)
-        tableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: Identifiers.headerID)
         view.addSubview(tableView)
+        navigationItem.hidesBackButton = true
         setConstraints()
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+
     struct Identifiers {
         static let postCell = "PostTableViewCell"
         static let photoCell = "PhotoTableViewCell"
@@ -31,13 +32,19 @@ final class ProfileViewController: UIViewController {
         let tableViewList = UITableView(frame: .zero, style: .grouped)
         tableViewList.rowHeight = UITableView.automaticDimension
         tableViewList.translatesAutoresizingMaskIntoConstraints = false
+        tableViewList.register(PostTableViewCell.self, forCellReuseIdentifier: Identifiers.postCell)
+        tableViewList.register(PhotosTableViewCell.self, forCellReuseIdentifier: Identifiers.photoCell)
+        tableViewList.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: Identifiers.headerID)
+        tableViewList.dataSource = self
+        tableViewList.delegate = self
         return tableViewList
     }()
     
     //MARK: - Properties
-    private let posts = Post.posts
-    private let photos = Photo.photos
+    private var posts = Post.posts
+    private var photos = Photo.photos
     private var photoTitle = Title(title: "Photo Gallery")
+    private var postTitle = Title(title: "Post Detail")
     
     //MARK: - Methods
     private func setConstraints() {
@@ -74,8 +81,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.postCell) as! PostTableViewCell
-            let views = posts[indexPath.row]
-            cell.set(views: views)
+            cell.set(with: indexPath.row)
             return cell
         }
     }
@@ -89,6 +95,11 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             navigationController?.pushViewController(newViewController, animated: true)
         default:
             tableView.deselectRow(at: indexPath, animated: true)
+            let newViewController = PostDetailViewController()
+            newViewController.title = postTitle.title
+            Post.posts[indexPath.row].views += 1
+            newViewController.post = Post.posts[indexPath.row]
+            navigationController?.pushViewController(newViewController, animated: true)
         }
     }
     
@@ -101,5 +112,15 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         guard section == 0 else { return 0 }
         return 250
+    }
+
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, _ in
+            if indexPath.section == 1 {
+                self.posts.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+        }
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
